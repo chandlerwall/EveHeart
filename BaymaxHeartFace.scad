@@ -7,7 +7,7 @@ $fn = smooth;
 
 // Cookie cutter dimensions
 base_h = 3;
-feature_h = 3;
+feature_h = 2;
 cut_base_h = 3;
 cut_h = 20;
 cut_w = 80;
@@ -15,10 +15,13 @@ cut_l = 70;
 
 // Nail dimensions
 nail_head_h = 0.75;
-nail_head_d = 8;
+nail_head_h2 = 1.5;
+nail_head_d = 8.25;
 nail_head_r = nail_head_d / 2;
-nail_shaft_d = 3.25;
+nail_shaft_d = 2.85;
 nail_shaft_r = nail_shaft_d / 2;
+nail_shaft_d2 = 3;
+nail_shaft_r2 = nail_shaft_d2 / 2;
 
 // Cutter (heart outline with "tall" outline)
 union()
@@ -30,7 +33,7 @@ union()
     scale(0.1)import(file="BaymaxHeartFace.dxf", layer="Base", center=true);
 }
 
-// Features (heart shape with Eve's face)
+// Features (heart shape with Baymax's face)
 translate([0,cut_l,0])
 union()
 {
@@ -47,10 +50,11 @@ union()
 }
 
 // Circular "patch" to cover/secure nail head to cookie cutter feature plate
-translate([cut_w / 2, - nail_head_r * 2 - 5, 0])
+translate([cut_w, cut_w, 1])
 difference()
 {
     cylinder(h=2, r=nail_head_r * 2, center=true);
-    #cylinder(h=2+pad, r=nail_shaft_r, center=true);
-    translate([0,0,nail_head_h])cylinder(h=nail_head_h+pad, r=nail_head_r, center=true);
+    translate([0,0,-(2 - nail_head_h2 + pad)/2])cylinder(h=nail_head_h2, r1=nail_shaft_r, r2=nail_shaft_r2, center=true);
+    translate([0,0,0])cylinder(h=nail_head_h2 - nail_head_h, r1=nail_shaft_r2, r2=nail_head_r, center=true);
+    translate([0,0,(2 - nail_head_h + pad)/2])cylinder(h=nail_head_h, r=nail_head_r, center=true);
 }
