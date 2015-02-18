@@ -10,18 +10,19 @@ pad = 0.01;
 base_h = 3;
 feature_h = 2;
 cut_base_h = 3;
-cut_h = 15;
-cut_w = 80;
-cut_l = 70;
+cut_h = 12;
+page_offset = 3;
+cut_w = 81.5 + page_offset;
+cut_l = 68.9 + page_offset;
 
 // Nail dimensions
 nail_head_h = 1;
 nail_head_h2 = 1.5;
 nail_head_d = 8.25;
 nail_head_r = nail_head_d / 2;
-nail_shaft_d = 3;
+nail_shaft_d = 3.25;
 nail_shaft_r = nail_shaft_d / 2;
-nail_shaft_d2 = 3.25;
+nail_shaft_d2 = 3.5;
 nail_shaft_r2 = nail_shaft_d2 / 2;
 
 patch_h = 2.5;
@@ -36,7 +37,7 @@ union()
     linear_extrude(height=cut_base_h)
     difference(){
         scale(0.1)import(file="BaymaxHeartFace.dxf", layer="Base", center=true);
-        #translate([3.75+cut_w/2, 10+cut_l/2])circle(r=nail_shaft_r, center=true);
+        #translate([(cut_w+page_offset)/2, 7+(cut_l+page_offset)/2])circle(r=nail_shaft_r, center=true);
     }
 }
 
@@ -70,6 +71,6 @@ difference()
 translate([cut_w + nail_head_r * 5, cut_w, guide_h/2])
 difference()
 {
-    cylinder(h=guide_h, r1=nail_head_r, r2=nail_shaft_r + nozzle_d*2, center=true);
+    cylinder(h=guide_h, r1=nail_head_r, r2=nail_shaft_r + nozzle_d*4, center=true);
     #translate([0,0,0])cylinder(h=guide_h+pad, r=nail_shaft_r, center=true);
 }
